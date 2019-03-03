@@ -4,15 +4,15 @@
 
 struct birthDate //Структура хранит значения даты рождения 
 {
-	int day;			//день
-	int month;			//месяц
-	int year;			//год
+	unsigned short day;			//день
+	unsigned short month;			//месяц
+	unsigned short year;			//год
 };
 
 struct GROUP {
 	char Name[32];		   //Фамилия и инициалы
 	birthDate DAT;         //Дата рождения
-	int SES;		       //Успеваемость	
+	unsigned short SES;		       //Успеваемость	
 };
 
 void fillingArray(GROUP *GR5, int N){          //Ввод с клавиатуры данных в массив GR5, состоящий из 10 структур типа GROUP 
