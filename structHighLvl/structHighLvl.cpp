@@ -1,6 +1,10 @@
 ﻿
 #include "pch.h"
 #include <iostream>
+#include <Windows.h>
+#include <iomanip>
+
+
 
 struct birthDate //Структура хранит значения даты рождения 
 {
@@ -21,7 +25,7 @@ void fillingArray(GROUP *GR5, int N){          //Ввод с клавиатур�
 	for (int i = 0; i < N; i++)
 	{
 		std::cout << "Фамилия и инициалы: ";
-		std::cin.getline(GR5[i].Name, 30);
+		gets_s(GR5[i].Name);
 		std::cout << "Дата рождения: " << std::endl;
 		std::cout << "День: ";
 		std::cin >> GR5[i].DAT.day;
@@ -49,10 +53,21 @@ void displayingEntriesOrdereByAscendingOfSES(GROUP *GR5, int N) {  //Вывод 
 		}
 	}
 	std::cout << "\t\tУпорядоченый список по успеваемости:" << std::endl;			//Вывод упорядоченого списка 
-	for (int i = 0; i < N; i++){           
-		std::cout << "Фамилия и инициалы: " << GR5[i].Name << std::endl
-		          << "Дата рождения: "      << GR5[i].DAT.day << '/' << GR5[i].DAT.month << '/' << GR5[i].DAT.year << std::endl
-		          << "Успеваемость: "       << GR5[i].SES  << std::endl << std::endl;
+	for (int i = 0; i < N; i++){        
+		
+		std::cout << std::setw(21 + strlen(GR5[i].Name)) << std::setfill('-') << '-' << std::ends << std::endl;
+
+		std::cout << "|Фамилия и инициалы: "  << std::setw(strlen(GR5[i].Name)) <<GR5[i].Name << '|' << std::endl;
+
+		std::cout << std::setw(21 + strlen(GR5[i].Name)) << std::setfill('-') << '-' << std::ends << std::endl;
+
+		std::cout << "|Дата рождения: " << std::setw(strlen(GR5[i].Name) - 2) << std::setfill(' ') << GR5[i].DAT.day << '/' << GR5[i].DAT.month << '/' << GR5[i].DAT.year << '|' << std::endl;
+
+		std::cout << std::setw(21 + strlen(GR5[i].Name)) << std::setfill('-') << '-' << std::ends << std::endl;
+
+		std::cout << "|Успеваемость: " << std::setw(5 + strlen(GR5[i].Name)) << std::setfill(' ') << GR5[i].SES << "%|"  << std::endl;
+
+		std::cout << std::setw(21 + strlen(GR5[i].Name)) << std::setfill('-') << '-' << std::ends << std::endl << std::endl;
 	}
 	
 }
@@ -65,9 +80,20 @@ void displayStudentsWhoAreLessThan20Years(GROUP *GR5, int N) {
 		//Находим разницу между датой 01/12/2010, переведённой в дни и датой рождения ,переведённой в дни.
 		//Полученное число дней делим на количество дней в году тем самым находим количество лет и сравниваем с 20.
 		if ((float)((1 + 12 * 31 + 2010 * 365) - (GR5[i].DAT.day + GR5[i].DAT.month * 31 + GR5[i].DAT.year * 365)) / 365 <= 20) {
-			std::cout << "Фамилия и инициалы: " << GR5[i].Name << std::endl
-					  << "Дата рождения: " << GR5[i].DAT.day << '/' << GR5[i].DAT.month << '/' << GR5[i].DAT.year << std::endl
-					  << "Успеваемость: " << GR5[i].SES << std::endl << std::endl;
+			std::cout << std::setw(21 + strlen(GR5[i].Name)) << std::setfill('-') << '-' << std::ends << std::endl;
+
+			std::cout << "|Фамилия и инициалы: " << std::setw(strlen(GR5[i].Name)) << GR5[i].Name << '|' << std::endl;
+
+			std::cout << std::setw(21 + strlen(GR5[i].Name)) << std::setfill('-') << '-' << std::ends << std::endl;
+
+			std::cout << "|Дата рождения: " << std::setw(strlen(GR5[i].Name) - 2) << std::setfill(' ') << GR5[i].DAT.day << '/' << GR5[i].DAT.month << '/' << GR5[i].DAT.year << '|' << std::endl;
+
+			std::cout << std::setw(21 + strlen(GR5[i].Name)) << std::setfill('-') << '-' << std::ends << std::endl;
+
+			std::cout << "|Успеваемость: " << std::setw(5 + strlen(GR5[i].Name)) << std::setfill(' ') << GR5[i].SES << "%|" << std::endl;
+
+			std::cout << std::setw(21 + strlen(GR5[i].Name)) << std::setfill('-') << '-' << std::ends << std::endl << std::endl;
+
 			check = true; //Если условие выполнится хотя-бы раз булевое значение изменится на true, тем самым показывая наличия студентов которым меньше 20 лет.
 		}
 	}
@@ -77,9 +103,10 @@ void displayStudentsWhoAreLessThan20Years(GROUP *GR5, int N) {
 
 int main()
 {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	
-	setlocale(LC_ALL,"Rus");
-	const int N = 10;
+	const int N = 2;
 	GROUP *GR5 = new GROUP[N];//Выделение памяти под динамический массив
 	fillingArray(GR5, N);//Вызов функции заполнения
 	
