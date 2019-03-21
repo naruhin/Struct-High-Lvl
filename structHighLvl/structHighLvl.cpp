@@ -27,14 +27,42 @@ void fillingArray(GROUP *GR5, int N){          //Ввод с клавиатур�
 		std::cout << "Фамилия и инициалы: ";
 		gets_s(GR5[i].Name);
 		std::cout << "Дата рождения: " << std::endl;
+
+		DAY:
 		std::cout << "День: ";
 		std::cin >> GR5[i].DAT.day;
+		if ( GR5[i].DAT.day < 0 || GR5[i].DAT.day > 31) {
+			std::cout << "Ошибка! Значение должно быть в промежутке от 0 до 31." << std::endl;
+			goto DAY;
+		}
+		
+		
+		
+		MONTH:
 		std::cout << "Месяц: ";
 		std::cin >> GR5[i].DAT.month;
+		if (GR5[i].DAT.month > 12 || GR5[i].DAT.month < 0) {
+			std::cout << "Ошибка! Значение должно быть в промежутке от 0 до 12." << std::endl;
+			goto MONTH;
+		}
+		
+
+		YEAR:
 		std::cout << "Год: ";
 		std::cin >> GR5[i].DAT.year;
+		if (GR5[i].DAT.year > 2019) {
+			std::cout << "Ошибка! Видимо он ещё не родился!" << std::endl;
+			goto YEAR;
+		}
+		
+		SES:
 		std::cout << "Успеваемость: ";
 		std::cin >> GR5[i].SES;
+		if (GR5[i].SES > 100 || GR5[i].SES < 0) {
+			std::cout << "Ошибка! Значение успеваемости должно быть в промежутке от 0 до 100" << std::endl;
+			goto SES;
+		}
+		
 		std::cin.ignore();
 		std::cout << std::endl;
 	}
@@ -106,7 +134,7 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	
-	const int N = 2;
+	const int N = 3;
 	GROUP *GR5 = new GROUP[N];//Выделение памяти под динамический массив
 	fillingArray(GR5, N);//Вызов функции заполнения
 	
